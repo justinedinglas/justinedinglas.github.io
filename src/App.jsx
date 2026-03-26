@@ -184,50 +184,96 @@ function ScrollIndicator() {
 /* ── MOBILE NAV ── */
 function MobileNav({ current, onNavigate }) {
   const [open, setOpen] = useState(false);
-  const go = (id) => { onNavigate(id); setOpen(false); };
+  const [fadeIn, setFadeIn] = useState(false);
   const links = [
     { id: "home", label: "Home" },
     { id: "work", label: "Work" },
     { id: "resume", label: "Resume" },
     { id: "contact", label: "Contact" },
   ];
+  const go = (id) => {
+    setFadeIn(false);
+    setTimeout(() => { setOpen(false); onNavigate(id); }, 400);
+  };
+  const toggleOpen = () => {
+    if (open) {
+      setFadeIn(false);
+      setTimeout(() => setOpen(false), 400);
+    } else {
+      setOpen(true);
+      requestAnimationFrame(() => requestAnimationFrame(() => setFadeIn(true)));
+    }
+  };
+
   return (
     <>
-      {/* Mobile top bar */}
-      <header className="mobile-header" style={{
-        display: "none", position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-        padding: "1rem 1.5rem", background: "var(--navBg)", backdropFilter: "blur(14px)",
-        justifyContent: "space-between", alignItems: "center",
-        borderBottom: "1px solid var(--border)", transition: "background 0.4s",
+      <div className="mobile-nav-bar" style={{
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 101,
+        padding: "1rem 1.5rem", display: "none", justifyContent: "space-between", alignItems: "center",
+        background: open ? "transparent" : "var(--navBg)",
+        backdropFilter: open ? "none" : "blur(18px)",
+        borderBottom: open ? "none" : "1px solid var(--border)",
+        transition: "background 0.4s, border-color 0.4s, backdrop-filter 0.4s",
       }}>
         <button onClick={() => go("home")} style={{
           background: "none", border: "none", cursor: "pointer",
-          fontFamily: "var(--font-display)", fontSize: "1.05rem", fontWeight: 700, color: "var(--text)",
-        }}>Justine Dinglas</button>
+          fontFamily: "var(--font-display)", fontSize: "1.05rem", fontWeight: 700,
+          color: open ? "#F2EBE5" : "var(--text)", transition: "color 0.4s",
+        }}>
+          Justine Dinglas<span style={{ color: "var(--accent)" }}>.</span>
+        </button>
         <div style={{ display: "flex", alignItems: "center", gap: "0.8rem" }}>
-          <ThemeToggle />
-          <button onClick={() => setOpen(!open)} style={{
-            background: "none", border: "none", cursor: "pointer", padding: "0.4rem",
+          {!open && <ThemeToggle />}
+          <button onClick={toggleOpen} style={{
+            background: "none", border: "none", cursor: "pointer",
+            padding: "0.5rem", width: 32, height: 32,
+            position: "relative", display: "flex", alignItems: "center", justifyContent: "center",
           }}>
-            <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
-              <line x1="0" y1="1" x2="22" y2="1" stroke="var(--text)" strokeWidth="1.5"/>
-              <line x1="0" y1="8" x2="22" y2="8" stroke="var(--text)" strokeWidth="1.5"/>
-              <line x1="0" y1="15" x2="22" y2="15" stroke="var(--text)" strokeWidth="1.5"/>
-            </svg>
+            {/* Hamburger lines that morph to X */}
+            <div style={{ position: "absolute", width: 22, height: 14 }}>
+              <span style={{
+                position: "absolute", left: 0, width: 22, height: 1.5, borderRadius: 2,
+                background: open ? "#F2EBE5" : "var(--text)",
+                top: open ? 6 : 0,
+                transform: open ? "rotate(45deg)" : "rotate(0)",
+                transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+              }} />
+              <span style={{
+                position: "absolute", left: 0, top: 6, width: 22, height: 1.5, borderRadius: 2,
+                background: open ? "#F2EBE5" : "var(--text)",
+                opacity: open ? 0 : 1,
+                transition: "opacity 0.3s ease",
+              }} />
+              <span style={{
+                position: "absolute", left: 0, width: 22, height: 1.5, borderRadius: 2,
+                background: open ? "#F2EBE5" : "var(--text)",
+                top: open ? 6 : 12,
+                transform: open ? "rotate(-45deg)" : "rotate(0)",
+                transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+              }} />
+            </div>
           </button>
         </div>
-      </header>
+      </div>
+
+      {/* Full-screen overlay */}
       {open && (
         <div style={{
-          position: "fixed", top: 52, left: 0, right: 0, bottom: 0, zIndex: 99,
-          background: "var(--bg)", padding: "2rem",
-          display: "flex", flexDirection: "column", gap: "1.8rem",
+          position: "fixed", top: 0, left: 0, right: 0, bottom: 0, zIndex: 100,
+          background: "#1A1214",
+          display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "2.5rem",
+          opacity: fadeIn ? 1 : 0,
+          transition: "opacity 0.4s ease",
         }}>
-          {links.map((l) => (
+          {links.map((l, i) => (
             <button key={l.id} onClick={() => go(l.id)} style={{
-              background: "none", border: "none", cursor: "pointer", textAlign: "left",
-              fontFamily: "var(--font-display)", fontSize: "1.8rem", fontWeight: 700,
-              color: current === l.id ? "var(--accent)" : "var(--text)",
+              background: "none", border: "none", cursor: "pointer",
+              fontFamily: "var(--font-body)", fontSize: "2.2rem", fontWeight: 300,
+              color: current === l.id ? "var(--accent)" : "#F2EBE5",
+              opacity: fadeIn ? 1 : 0,
+              transform: fadeIn ? "translateY(0)" : "translateY(20px)",
+              transition: `opacity 0.5s ease ${i * 0.1}s, transform 0.5s ease ${i * 0.1}s, color 0.3s`,
+              letterSpacing: "-0.01em",
             }}>{l.label}</button>
           ))}
         </div>
@@ -237,30 +283,41 @@ function MobileNav({ current, onNavigate }) {
 }
 
 /* ── HOME PAGE ── */
-function HomePage({ onNavigate }) {
+function HomePage() {
   return (
     <div>
-      <section style={{ minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", padding: "6rem 0 4rem" }}>
-        <Reveal>
-          <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.73rem", color: "var(--text-muted)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "2rem" }}>
-            CSULB '26 in Computer Science · Web Dev · UX Research
-          </div>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <h1 style={{
-            fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(3rem, 8vw, 6.5rem)",
-            lineHeight: 1.0, letterSpacing: "-0.04em", color: "var(--text)", marginBottom: "2.5rem", maxWidth: 900,
-          }}>
-            PRODUCT<br />
-            <span style={{ color: "var(--accent)" }}>THINKER</span> &<br />
-            STORYTELLER
-          </h1>
-        </Reveal>
-        <Reveal delay={0.3}>
-          <p style={{ fontSize: "1.05rem", color: "var(--text-muted)", maxWidth: 520, lineHeight: 1.8 }}>
-            Blending product thinking and software development with creative storytelling.
-          </p>
-        </Reveal>
+      <section style={{
+        minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center",
+        padding: "0 0 4rem", position: "relative", overflow: "hidden",
+      }}>
+        <div style={{ position: "absolute", top: "10%", right: "-15%", width: 700, height: 700, background: "radial-gradient(circle, var(--glow1) 0%, transparent 70%)", borderRadius: "50%", filter: "blur(60px)", pointerEvents: "none", animation: "glowPulse 6s ease-in-out infinite alternate" }} />
+        <div style={{ position: "absolute", bottom: "5%", left: "-10%", width: 500, height: 500, background: "radial-gradient(circle, var(--glow2) 0%, transparent 70%)", borderRadius: "50%", filter: "blur(50px)", pointerEvents: "none", animation: "glowPulse 8s ease-in-out 2s infinite alternate" }} />
+
+        <div style={{ position: "relative", zIndex: 1 }}>
+          <Reveal>
+            <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.72rem", color: "var(--accent)", letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "1.5rem", fontWeight: 600 }}>
+              CSULB '26 in Computer Science · Web Dev · UX Research
+            </div>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <h1 style={{
+              fontFamily: "var(--font-display)", fontWeight: 800,
+              fontSize: "clamp(2.4rem, 6vw, 4.5rem)",
+              lineHeight: 1.1, letterSpacing: "-0.03em", color: "var(--text)",
+              marginBottom: "1.8rem", maxWidth: 750,
+            }}>
+              Hi! I'm Justine —<br />
+              <RoleRotator />
+            </h1>
+          </Reveal>
+          <Reveal delay={0.16}>
+            <p style={{ fontSize: "1.08rem", color: "var(--text-muted)", maxWidth: 480, lineHeight: 1.75 }}>
+              Blending product thinking and software development with creative storytelling.
+            </p>
+          </Reveal>
+        </div>
+
+        <ScrollIndicator />
       </section>
 
       {/* About */}
