@@ -213,8 +213,6 @@ function HomePage() {
   return (
     <div>
       <section style={{ minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", padding: "0 0 4rem", position: "relative", overflow: "hidden" }}>
-        <div className="hero-glow" style={{ position: "absolute", top: "10%", right: "-15%", width: 700, height: 700, background: "radial-gradient(circle, var(--glow1) 0%, transparent 70%)", borderRadius: "50%", filter: "blur(60px)", pointerEvents: "none", animation: "glowPulse 6s ease-in-out infinite alternate" }} />
-        <div className="hero-glow" style={{ position: "absolute", bottom: "5%", left: "-10%", width: 500, height: 500, background: "radial-gradient(circle, var(--glow2) 0%, transparent 70%)", borderRadius: "50%", filter: "blur(50px)", pointerEvents: "none", animation: "glowPulse 8s ease-in-out 2s infinite alternate" }} />
         <div style={{ position: "relative", zIndex: 1 }}>
           <Reveal>
             <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.72rem", color: "var(--accent)", letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "1.5rem", fontWeight: 600 }}>
@@ -462,8 +460,10 @@ export default function Portfolio() {
         html, body, #root { height: 100%; }
         body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.7; font-weight: 300; transition: background 0.4s, color 0.4s; }
         ::selection { background: ${t.selBg}; color: ${t.selColor}; }
-        a { text-decoration: none; }
-        @keyframes glowPulse { 0% { opacity: 0.4; transform: scale(1); } 100% { opacity: 0.8; transform: scale(1.1); } }
+        a { text-decoration: none; 
+        html { scrollbar-width: none; } 
+        html::-webkit-scrollbar { display: none; }
+        }
         @keyframes scrollBounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
         @media (max-width: 900px) {
           .nav-desktop-bar { display: none !important; }
