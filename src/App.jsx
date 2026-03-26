@@ -307,7 +307,7 @@ function WorkPage() {
     <div>
       <section style={{ paddingTop: "8rem", paddingBottom: "3rem" }}>
         <Reveal><div style={{ fontFamily: "var(--font-accent)", fontSize: "0.7rem", color: "var(--text-muted)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "1.5rem" }}>Selected Work</div></Reveal>
-        <Reveal delay={0.1}><h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.5rem, 6vw, 4.5rem)", lineHeight: 1.05, letterSpacing: "-0.03em", color: "var(--text)" }}>Projects &<br />Case Studies</h1></Reveal>
+        <Reveal delay={0.1}><h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.5rem, 6vw, 4.5rem)", lineHeight: 1.05, letterSpacing: "-0.03em", color: "var(--text)" }}>Projects & Case Studies</h1></Reveal>
       </section>
       {projects.map(p => (
         <section key={p.num} style={{ padding: "4rem 0", borderTop: "1px solid var(--border)" }}>
@@ -356,7 +356,7 @@ function ResumePage() {
     <div>
       <section style={{ paddingTop: "8rem", paddingBottom: "3rem" }}>
         <Reveal><div style={{ fontFamily: "var(--font-accent)", fontSize: "0.7rem", color: "var(--text-muted)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "1.5rem" }}>My Journey</div></Reveal>
-        <Reveal delay={0.1}><h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.5rem, 6vw, 4.5rem)", lineHeight: 1.05, letterSpacing: "-0.03em", color: "var(--text)" }}>Resume &<br />Experience</h1></Reveal>
+        <Reveal delay={0.1}><h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.5rem, 6vw, 4.5rem)", lineHeight: 1.05, letterSpacing: "-0.03em", color: "var(--text)" }}>Resume & Experience</h1></Reveal>
       </section>
       <section style={{ padding: "3rem 0", borderTop: "1px solid var(--border)" }}>
         <Reveal>
@@ -404,7 +404,7 @@ function ContactPage() {
     <div>
       <section style={{ paddingTop: "8rem", minHeight: "80vh", display: "flex", flexDirection: "column", justifyContent: "center" }}>
         <Reveal><div style={{ fontFamily: "var(--font-accent)", fontSize: "0.7rem", color: "var(--text-muted)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "1.5rem" }}>Get in Touch</div></Reveal>
-        <Reveal delay={0.1}><h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.5rem, 6vw, 4.5rem)", lineHeight: 1.05, letterSpacing: "-0.03em", color: "var(--text)", marginBottom: "2rem", maxWidth: 700 }}>Let's build<br />something <span style={{ color: "var(--accent)" }}>together</span>.</h1></Reveal>
+        <Reveal delay={0.1}><h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.5rem, 6vw, 4.5rem)", lineHeight: 1.05, letterSpacing: "-0.03em", color: "var(--text)", marginBottom: "2rem", maxWidth: 700 }}>Let's build something <span style={{ color: "var(--accent)" }}>together</span>.</h1></Reveal>
         <Reveal delay={0.2}><p style={{ color: "var(--text-muted)", fontSize: "1.05rem", maxWidth: 500, lineHeight: 1.8, marginBottom: "3rem" }}>I'm currently looking for internships in UX research, product management, and software development. But I'm always looking to learn and connect—especially with those open to mentorship or just to have an insightful conversation!</p></Reveal>
         <Reveal delay={0.3}>
           <div style={{ display: "flex", flexDirection: "column", gap: "1.2rem" }}>
@@ -463,7 +463,6 @@ export default function Portfolio() {
         a { text-decoration: none; }
         html { scrollbar-width: none; } 
         html::-webkit-scrollbar { display: none; }
-        }
         @keyframes scrollBounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
         @media (max-width: 900px) {
           .nav-desktop-bar { display: none !important; }
