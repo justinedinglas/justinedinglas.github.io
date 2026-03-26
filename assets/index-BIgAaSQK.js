@@ -18,7 +18,7 @@ Error generating stack: `+e.message+`
         html, body, #root { height: 100%; }
         body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.7; font-weight: 300; transition: background 0.4s, color 0.4s; }
         ::selection { background: ${o.selBg}; color: ${o.selColor}; }
-        a { text-decoration: none; 
+        a { text-decoration: none; }
         html { scrollbar-width: none; } 
         html::-webkit-scrollbar { display: none; }
         }
