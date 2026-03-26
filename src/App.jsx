@@ -5,18 +5,6 @@ const ThemeCtx = createContext();
 function useTheme() { return useContext(ThemeCtx); }
 
 const themes = {
-  dark: {
-    bg: "#1A1214",
-    bgDark: "#140E10",
-    text: "#F2EBE5",
-    textMuted: "#8A7E82",
-    accent: "#C4647A",
-    accentMuted: "rgba(196,100,122,0.15)",
-    border: "rgba(242,235,229,0.08)",
-    navBg: "rgba(20,14,16,0.92)",
-    selBg: "#C4647A",
-    selColor: "#1A1214",
-  },
   light: {
     bg: "#FAF5F0",
     bgDark: "#F0EAE3",
@@ -28,6 +16,18 @@ const themes = {
     navBg: "rgba(240,234,227,0.92)",
     selBg: "#7B2D3F",
     selColor: "#FAF5F0",
+  },
+  dark: {
+    bg: "#1A1214",
+    bgDark: "#140E10",
+    text: "#F2EBE5",
+    textMuted: "#8A7E82",
+    accent: "#C4647A",
+    accentMuted: "rgba(196,100,122,0.15)",
+    border: "rgba(242,235,229,0.08)",
+    navBg: "rgba(20,14,16,0.92)",
+    selBg: "#C4647A",
+    selColor: "#1A1214",
   },
 };
 
@@ -128,11 +128,11 @@ function Sidebar({ current, onNavigate }) {
         <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
           <ThemeToggle />
           <div style={{ display: "flex", gap: "1rem" }}>
-            <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer" style={{
+            <a href="https://www.linkedin.com/in/justinedinglas/" target="_blank" rel="noopener noreferrer" style={{
               fontFamily: "var(--font-accent)", fontSize: "0.68rem", color: "var(--text-muted)",
               letterSpacing: "0.06em", textDecoration: "none", borderBottom: "1px solid var(--border)", paddingBottom: 2,
             }}>LinkedIn</a>
-            <a href="https://github.com/yourprofile" target="_blank" rel="noopener noreferrer" style={{
+            <a href="https://github.com/justinedinglas" target="_blank" rel="noopener noreferrer" style={{
               fontFamily: "var(--font-accent)", fontSize: "0.68rem", color: "var(--text-muted)",
               letterSpacing: "0.06em", textDecoration: "none", borderBottom: "1px solid var(--border)", paddingBottom: 2,
             }}>GitHub</a>
@@ -190,7 +190,7 @@ function HomePage({ onNavigate }) {
       <section style={{ minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", padding: "6rem 0 4rem" }}>
         <Reveal>
           <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.73rem", color: "var(--text-muted)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "2rem" }}>
-            CS Student · Product · UX · Creative
+            CSULB '26 in Computer Science · Web Dev · UX Research
           </div>
         </Reveal>
         <Reveal delay={0.1}>
@@ -203,19 +203,9 @@ function HomePage({ onNavigate }) {
             STORYTELLER
           </h1>
         </Reveal>
-        <Reveal delay={0.2}>
-          <div style={{ display: "flex", gap: "3rem", flexWrap: "wrap", marginBottom: "3rem" }}>
-            {[["Portfolio 2026", "Los Angeles"], ["Selected Work", "3 projects"]].map(([a, b]) => (
-              <div key={a}>
-                <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.63rem", color: "var(--text-muted)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "0.3rem" }}>{a}</div>
-                <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.63rem", color: "var(--text-muted)", letterSpacing: "0.1em", textTransform: "uppercase" }}>{b}</div>
-              </div>
-            ))}
-          </div>
-        </Reveal>
         <Reveal delay={0.3}>
           <p style={{ fontSize: "1.05rem", color: "var(--text-muted)", maxWidth: 520, lineHeight: 1.8 }}>
-            Blending product thinking, UX research, and software development with creative storytelling. From writing a Filipino musical for 1,000+ people to shipping user-centered digital products.
+            Blending product thinking and software development with creative storytelling.
           </p>
         </Reveal>
       </section>
@@ -242,22 +232,11 @@ function HomePage({ onNavigate }) {
                 Justine Alexa Dinglas
               </h2>
               <p style={{ color: "var(--text-muted)", fontSize: "0.98rem", lineHeight: 1.8, marginBottom: "1.2rem" }}>
-                Computer Science student at Cal State Long Beach (graduating December 2026) at the intersection of technology and creative expression. My work spans product management, UX research, and front-end development.
+                Computer Science student at California State University, Long Beach (graduating December 2026)working across product management, UX research, and front-end development — always where technology meets creative expression.
               </p>
               <p style={{ color: "var(--text-muted)", fontSize: "0.98rem", lineHeight: 1.8, marginBottom: "1.2rem" }}>
-                I wrote and produced <em style={{ color: "var(--text)" }}>Katotohanan</em>, an original Filipino musical for 1,000+ attendees at CSULB's Pilipino Cultural Night, later produced at the Hollywood Fringe Festival.
+                Growing up immersed in music, film, and theater taught me that great experiences are intentional, emotional, and human-centered. My goal is to bridge the gap between technical craft and creative expression in everything I ship.
               </p>
-              <p style={{ color: "var(--text-muted)", fontSize: "0.98rem", lineHeight: 1.8, marginBottom: "2rem" }}>
-                As a leader in the Pilipino American Coalition, I've organized programs serving 300+ members and mentored through the Ate/Kuya/Ading program.
-              </p>
-              <div style={{ display: "flex", gap: "3rem", flexWrap: "wrap" }}>
-                {[{ n: "1,000+", l: "Musical Attendees" }, { n: "300+", l: "Members Mentored" }, { n: "Dec '26", l: "Graduation" }].map(s => (
-                  <div key={s.l}>
-                    <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.5rem", color: "var(--accent)", marginBottom: "0.2rem" }}>{s.n}</div>
-                    <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.63rem", color: "var(--text-muted)", letterSpacing: "0.08em", textTransform: "uppercase" }}>{s.l}</div>
-                  </div>
-                ))}
-              </div>
             </div>
           </Reveal>
         </div>
@@ -270,9 +249,9 @@ function HomePage({ onNavigate }) {
         </Reveal>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "2rem" }} className="responsive-three-col">
           {[
-            { title: "Product Management", desc: "PRDs, prioritization frameworks, pressure-testing ideas, and translating user needs into features that matter." },
-            { title: "UX Research & Design", desc: "User interviews, persona development, journey mapping, and flows grounded in real data." },
-            { title: "Software Development", desc: "Front-end focused with a full-stack foundation. React, JavaScript, and clean, maintainable code." },
+            { title: "Product Management", desc: "Defining product direction through PRDs, prioritization frameworks, and a sharp focus on user needs." },
+            { title: "UX Research", desc: "User research grounded in interviews, persona development, journey mapping, and real data." },
+            { title: "Web Development", desc: "Front-end development grounded in HTML/CSS, React, and JavaScript." },
           ].map((item, i) => (
             <Reveal key={item.title} delay={i * 0.08}>
               <div style={{ padding: "2rem 0", borderTop: "1px solid var(--border)" }}>
@@ -288,10 +267,10 @@ function HomePage({ onNavigate }) {
       {/* Interests */}
       <section style={{ padding: "6rem 0", borderTop: "1px solid var(--border)" }}>
         <Reveal>
-          <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.7rem", color: "var(--accent)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "3rem", fontWeight: 600 }}>Beyond the Screen</div>
+          <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.7rem", color: "var(--accent)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "3rem", fontWeight: 600 }}>Beyond Tech</div>
         </Reveal>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1rem" }} className="responsive-three-col">
-          {["Musical Theatre & Playwriting", "Filipino Culture & Community", "Creative & Fiction Writing", "Cafe Culture & Discovery", "Storytelling & Podcasting", "Mentorship & Youth Leadership"].map((item, i) => (
+          {["Musical Theatre", "Filipino Culture, History, & Community", "Films", "Creative & Fiction Writing", "Concerts & Festivals", "Food"].map((item, i) => (
             <Reveal key={item} delay={i * 0.05}>
               <div style={{
                 padding: "1.2rem 1.4rem", borderRadius: 8,
@@ -314,11 +293,11 @@ function HomePage({ onNavigate }) {
 function WorkPage() {
   const projects = [
     {
-      num: "01", tags: "Product Design · UX Research · Capstone", title: "sip'd — Cafe Discovery App",
-      challenge: "College students struggle to find cafes matching their study/social needs",
+      num: "01", tags: "Product Management · UX Research · Senior Capstone", title: "sip'd — Cafe Discovery App",
+      challenge: "Cafe enthusiasts struggle to find cafes matching their study/social needs",
       approach: "User interviews + persona development + iterative UX flows",
       outcome: "Community-first cafe discovery app with warm brand identity",
-      techs: ["UX Research", "Persona Design", "Figma", "Team Lead"],
+      techs: ["UX Research", "Project Management", "Figma", "React", "Node.js", "Team Lead"],
       gradient: "linear-gradient(135deg, #2D5A3D, #4A8C5E)",
     },
     {
@@ -331,10 +310,10 @@ function WorkPage() {
     },
     {
       num: "03", tags: "Creative · Musical Theatre", title: "Katotohanan — Original Filipino Musical",
-      challenge: "Telling an authentic Filipino story through original musical theatre",
-      approach: "Original playwriting + production management + community casting",
-      outcome: "1,000+ attendees at PCN, Hollywood Fringe Festival production",
-      techs: ["Playwright", "Producer", "Storytelling", "Hollywood Fringe"],
+      challenge: "Amplifying the untold struggles of the Philippines' indigenous communities to life through original musical theatre",
+      approach: "Playwriting + production management + community casting",
+      outcome: "Sparked conversation around power, truth, and oppression, 1,000+ attendees at PCN, Hollywood Fringe Festival production",
+      techs: ["Playwright", "Director", "Producer", "Storytelling"],
       gradient: "linear-gradient(135deg, #6B2B3A, #8C4A5A)",
     },
   ];
@@ -403,17 +382,38 @@ function WorkPage() {
 /* ── RESUME PAGE ── */
 function ResumePage() {
   const experience = [
-    { date: "2024 — Present", title: "Senior Capstone — sip'd", org: "CECS 491A · Cal State Long Beach", desc: "Leading product development for a cafe discovery app. User interviews, personas, UX flows, 5-person engineering team." },
-    { date: "2024", title: "PM Externship — BeReal Feature", org: "Product Management Externship", desc: "PRD-lite and clickable prototype for 3-second voice note reactions. Screen flows and product strategy." },
-    { date: "2022 — 2024", title: "Membership Chair & Leader", org: "Pilipino American Coalition · CSULB", desc: "Ate/Kuya/Ading mentorship program (300+ members), Kapatids Month, large-scale cultural events." },
-    { date: "2023", title: "Playwright & Producer", org: "Katotohanan · CSULB PCN & Hollywood Fringe", desc: "Original Filipino musical, 1,000+ attendees. Secured Executive Producer for Hollywood Fringe." },
-  ];
+    { date: "January 2026 — Present", title: "Senior Capstone — sip'd", org: "CECS 491A · California State University, Long Beach", desc: (
+  <>
+    <span>• Led end-to-end MVP development for a multi-dimensional cafe rating system (8 attributes × 5 user purposes); defined product requirements via user interviews, authored a full PRD, user flow docs, and operational playbooks that aligned a cross-functional team of 5.</span><br/>
+    <span>• Applied design thinking through persona research and use-case scenario mapping, translating raw interview data into actionable go-to-market positioning.</span><br/>
+  </>
+)},
+    { date: "Janaury 2026 - March 2026", title: "Product Management Externship", org: "BeReal · Extern", desc: (
+  <>
+    <span>• Generated 30 feature concepts using AI-assisted tools (Claude) and applied RICE prioritization scoring to identify the highest-value opportunity; validated all AI outputs before incorporating into product strategy.</span><br/>
+    <span>• Conducted competitive benchmarking across Instagram and Twitter (X), synthesizing engagement and retention data into a PRD-lite with annotated event logs, used to inform go-to-market positioning and stakeholder alignment.</span><br/>
+    <span>• Practiced and self-reviewed recorded pitch of the research-backed feature recommendation as final project, iterating on clarity and stakeholder framing to ensure the value proposition and supporting data were communicated concisely.</span>
+  </>
+)},
+    { date: "May 2024 — May 2025", title: "Membership Chair", org: "Pilipino American Coalition · CSULB", desc: (
+  <>
+    <span>• Owned strategy and execution for the Ate/Kuya/Ading mentorship program, recruiting and managing 300+ members, building pairing logic, coordinating timelines across 5 weeks, and serving as the primary internal communications lead for all participants.</span><br/>
+    <span>• Proactively approached problems by leading cabinet meetings, to clearly communicate issues, priorities, and action steps, ensuring alignment between an 18-person cabinet and 300+ general members.</span><br/>
+  </>
+)},
+    { date: "June 2023 - June 2025", title: "Playwright & Director — Katotohanan", org: "Pilipino Cultural Night · CSULB & Hollywood Fringe Festival 2025", desc: (
+  <>
+    <span>• Wrote and directed an original Filipino musical performed for 1,000+ attendees, sparking conversation around power, truth, and oppression, while managing the full production lifecycle from concept through live performance across a 9-month timeline.</span><br/>
+    <span>• Led cross-functional collaboration across choreography, music, and technical crews, coordinating creative direction and iterating through structured feedback loops to hit all milestones on deadline.</span><br/>
+  </>
+)}];
+
   const skills = [
-    { category: "Product", items: ["PRDs & Roadmaps", "User Research", "A/B Testing", "Prioritization", "Stakeholder Mgmt"] },
+    { category: "Product", items: ["PRDs & Roadmaps", "User Research", "A/B Testing", "Prioritization", "Stakeholder Management"] },
     { category: "Design", items: ["Figma", "Wireframing", "Prototyping", "User Flows", "Journey Mapping"] },
-    { category: "Engineering", items: ["React", "JavaScript", "HTML/CSS", "Python", "Git"] },
-    { category: "Leadership", items: ["Community Org", "Mentorship", "Event Production", "Cross-functional"] },
-  ];
+    { category: "Development", items: ["React", "JavaScript", "HTML/CSS", "Python", "Git & GitHub"] },
+    { category: "Tools", items: ["Claude AI", "Notion", "Adobe Creative Suite", "Google Workspace", "Microsoft Office"] },
+];
 
   return (
     <div>
@@ -497,15 +497,16 @@ function ContactPage() {
         </Reveal>
         <Reveal delay={0.2}>
           <p style={{ color: "var(--text-muted)", fontSize: "1.05rem", maxWidth: 500, lineHeight: 1.8, marginBottom: "3rem" }}>
-            I'm currently looking for internships in product management, UX research, and software development. I'd love to hear from you.
+            I'm currently looking for internships in UX research, product management,  and software development. But I'm always looking to learn and connect—especially with those open to mentorship or just to have an insightful conversation!
           </p>
         </Reveal>
         <Reveal delay={0.3}>
           <div style={{ display: "flex", flexDirection: "column", gap: "1.2rem" }}>
             {[
-              { label: "Email", href: "mailto:your@email.com", val: "your@email.com" },
-              { label: "LinkedIn", href: "https://linkedin.com/in/yourprofile", val: "linkedin.com/in/yourprofile" },
-              { label: "GitHub", href: "https://github.com/yourprofile", val: "github.com/yourprofile" },
+              { label: "Email", href: "mailto:justinealexa.dinglas01@csulb.student.edu", val: "justinealexa.dinglas01@csulb.student.edu" },
+              { label: "LinkedIn", href: "https://www.linkedin.com/in/justinedinglas/", val: "linkedin.com/in/justinedinglas" },
+              { label: "GitHub", href: "https://github.com/justinedinglas", val: "github.com/justinedinglas" },
+              { label: "Beli", href: "https://beliapp.co/app/dinonaraz", val: "beliapp.co/app/dinonaraz" },
             ].map(c => (
               <div key={c.label} style={{ display: "flex", gap: "2rem", alignItems: "baseline" }}>
                 <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.63rem", color: "var(--text-muted)", letterSpacing: "0.1em", textTransform: "uppercase", width: 80 }}>{c.label}</div>
