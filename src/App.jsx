@@ -530,7 +530,7 @@ function ContactPage() {
 export default function Portfolio() {
   const [page, setPage] = useState("home");
   const [transitioning, setTransitioning] = useState(false);
-  const [mode, setMode] = useState("dark");
+  const [mode, setMode] = useState("light");
   const t = themes[mode];
 
   const toggle = useCallback(() => setMode(m => m === "dark" ? "light" : "dark"), []);
