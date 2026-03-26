@@ -53,7 +53,7 @@ function Reveal({ children, delay = 0, style = {} }) {
   return (
     <div ref={ref} style={{
       opacity: visible ? 1 : 0,
-      transform: visible ? "translateY(0)" : "translateY(24px)",
+      transform: visible ? "translateY(0)" : "translateY(22px)",
       transition: `opacity 0.7s cubic-bezier(0.4,0,0.2,1) ${delay}s, transform 0.7s cubic-bezier(0.4,0,0.2,1) ${delay}s`,
       ...style,
     }}>{children}</div>
@@ -66,80 +66,133 @@ function ThemeToggle() {
   return (
     <button onClick={toggle} aria-label="Toggle theme" style={{
       background: "none", border: "1px solid var(--border)", borderRadius: 100,
-      cursor: "pointer", padding: "0.4rem 0.75rem", display: "flex", alignItems: "center", gap: "0.4rem",
-      fontFamily: "var(--font-accent)", fontSize: "0.62rem", letterSpacing: "0.08em",
+      cursor: "pointer", padding: "0.35rem 0.7rem", display: "flex", alignItems: "center", gap: "0.35rem",
+      fontFamily: "var(--font-accent)", fontSize: "0.6rem", letterSpacing: "0.08em",
       textTransform: "uppercase", color: "var(--text-muted)", transition: "border-color 0.3s, color 0.3s",
     }}
       onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--accent)"; e.currentTarget.style.color = "var(--accent)"; }}
       onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--border)"; e.currentTarget.style.color = "var(--text-muted)"; }}
     >
       {mode === "dark" ? (
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
       ) : (
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       )}
       {mode === "dark" ? "Light" : "Dark"}
     </button>
   );
 }
 
-/* ── SIDEBAR NAV ── */
-function Sidebar({ current, onNavigate }) {
-  const [open, setOpen] = useState(false);
+/* ── ROLE ROTATOR (interactive hero element) ── */
+function RoleRotator() {
+  const roles = ["product thinker", "UX researcher", "web developer", "storyteller", "movie enthusiast", "community builder", "foodie"];
+  const [idx, setIdx] = useState(0);
+  const [fade, setFade] = useState(true);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFade(false);
+      setTimeout(() => { setIdx(i => (i + 1) % roles.length); setFade(true); }, 300);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+  return (
+    <span style={{
+      color: "var(--accent)", display: "inline-block", minWidth: 280,
+      opacity: fade ? 1 : 0, transform: fade ? "translateY(0)" : "translateY(8px)",
+      transition: "opacity 0.3s ease, transform 0.3s ease",
+    }}>{roles[idx]}</span>
+  );
+}
+
+/* ── TOP NAV (desktop) ── */
+function TopNav({ current, onNavigate }) {
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const h = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", h);
+    return () => window.removeEventListener("scroll", h);
+  }, []);
   const links = [
     { id: "home", label: "Home" },
     { id: "work", label: "Work" },
     { id: "resume", label: "Resume" },
     { id: "contact", label: "Contact" },
   ];
-  const go = (id) => { setOpen(false); onNavigate(id); };
 
   return (
-    <>
-      {/* Desktop sidebar */}
-      <aside className="sidebar-desktop" style={{
-        position: "fixed", top: 0, left: 0, width: 260, height: "100vh",
-        background: "var(--bg-dark)", borderRight: "1px solid var(--border)",
-        display: "flex", flexDirection: "column", justifyContent: "space-between",
-        padding: "2.5rem 2rem", zIndex: 100, transition: "background 0.4s, border-color 0.4s",
+    <nav className="nav-desktop-bar" style={{
+      position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+      padding: scrolled ? "0.8rem 3rem" : "1.2rem 3rem",
+      display: "flex", justifyContent: "space-between", alignItems: "center",
+      background: scrolled ? "var(--navBg)" : "transparent",
+      backdropFilter: scrolled ? "blur(18px)" : "none",
+      WebkitBackdropFilter: scrolled ? "blur(18px)" : "none",
+      borderBottom: scrolled ? "1px solid var(--border)" : "1px solid transparent",
+      transition: "all 0.4s cubic-bezier(0.4,0,0.2,1)",
+    }}>
+      <button onClick={() => onNavigate("home")} style={{
+        background: "none", border: "none", cursor: "pointer",
+        fontFamily: "var(--font-display)", fontSize: "1.05rem", fontWeight: 700, color: "var(--text)",
+        letterSpacing: "-0.02em",
       }}>
-        <div>
-          <button onClick={() => go("home")} style={{
-            background: "none", border: "none", cursor: "pointer", padding: 0,
-            fontFamily: "var(--font-display)", fontSize: "1.2rem", fontWeight: 700, color: "var(--text)",
-            letterSpacing: "-0.02em", marginBottom: "0.3rem", display: "block", textAlign: "left",
-          }}>Justine Dinglas</button>
-          <div style={{
-            fontFamily: "var(--font-accent)", fontSize: "0.68rem", color: "var(--text-muted)",
-            letterSpacing: "0.1em", textTransform: "uppercase",
-          }}>Los Angeles, CA</div>
-        </div>
-        <nav style={{ display: "flex", flexDirection: "column", gap: "1.4rem" }}>
-          {links.map((l) => (
-            <button key={l.id} onClick={() => go(l.id)} style={{
-              background: "none", border: "none", cursor: "pointer", textAlign: "left",
-              fontFamily: "var(--font-accent)", fontSize: "0.76rem", fontWeight: current === l.id ? 600 : 400,
-              letterSpacing: "0.08em", textTransform: "uppercase",
-              color: current === l.id ? "var(--accent)" : "var(--text-muted)",
-              transition: "color 0.3s",
-            }}>{l.label}</button>
-          ))}
-        </nav>
-        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-          <ThemeToggle />
-          <div style={{ display: "flex", gap: "1rem" }}>
-            <a href="https://www.linkedin.com/in/justinedinglas/" target="_blank" rel="noopener noreferrer" style={{
-              fontFamily: "var(--font-accent)", fontSize: "0.68rem", color: "var(--text-muted)",
-              letterSpacing: "0.06em", textDecoration: "none", borderBottom: "1px solid var(--border)", paddingBottom: 2,
-            }}>LinkedIn</a>
-            <a href="https://github.com/justinedinglas" target="_blank" rel="noopener noreferrer" style={{
-              fontFamily: "var(--font-accent)", fontSize: "0.68rem", color: "var(--text-muted)",
-              letterSpacing: "0.06em", textDecoration: "none", borderBottom: "1px solid var(--border)", paddingBottom: 2,
-            }}>GitHub</a>
-          </div>
-        </div>
-      </aside>
+        Justine Dinglas<span style={{ color: "var(--accent)" }}>.</span>
+      </button>
+      <div style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
+        {links.map(l => (
+          <button key={l.id} onClick={() => onNavigate(l.id)} style={{
+            background: "none", border: "none", cursor: "pointer",
+            fontFamily: "var(--font-accent)", fontSize: "0.72rem", fontWeight: 500,
+            letterSpacing: "0.08em", textTransform: "uppercase",
+            color: current === l.id ? "var(--accent)" : "var(--text-muted)", transition: "color 0.3s",
+          }}
+            onMouseEnter={e => e.target.style.color = current === l.id ? "var(--accent)" : "var(--text)"}
+            onMouseLeave={e => e.target.style.color = current === l.id ? "var(--accent)" : "var(--text-muted)"}
+          >{l.label}</button>
+        ))}
+        <div style={{ width: 1, height: 16, background: "var(--border)" }} />
+        <ThemeToggle />
+      </div>
+    </nav>
+  );
+}
 
+/* ── SCROLL INDICATOR ── */
+function ScrollIndicator() {
+  const [opacity, setOpacity] = useState(1);
+  useEffect(() => {
+    const h = () => {
+      const fade = Math.max(0, 1 - window.scrollY / 300);
+      setOpacity(fade);
+    };
+    window.addEventListener("scroll", h);
+    return () => window.removeEventListener("scroll", h);
+  }, []);
+  return (
+    <div style={{
+      position: "absolute", bottom: "2rem", left: "50%",
+      display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem",
+      opacity: opacity, transform: `translateX(-50%) translateY(${(1 - opacity) * 10}px)`,
+      transition: "opacity 0.15s ease, transform 0.15s ease", pointerEvents: "none",
+      animation: opacity > 0.1 ? "scrollBounce 2s ease-in-out infinite" : "none",
+    }}>
+      <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.58rem", color: "var(--text-muted)", letterSpacing: "0.1em", textTransform: "uppercase" }}>Scroll</div>
+      <div style={{ width: 1, height: 28, background: "var(--border)" }} />
+    </div>
+  );
+}
+
+/* ── MOBILE NAV ── */
+function MobileNav({ current, onNavigate }) {
+  const [open, setOpen] = useState(false);
+  const go = (id) => { onNavigate(id); setOpen(false); };
+  const links = [
+    { id: "home", label: "Home" },
+    { id: "work", label: "Work" },
+    { id: "resume", label: "Resume" },
+    { id: "contact", label: "Contact" },
+  ];
+  return (
+    <>
       {/* Mobile top bar */}
       <header className="mobile-header" style={{
         display: "none", position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
@@ -270,7 +323,7 @@ function HomePage({ onNavigate }) {
           <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.7rem", color: "var(--accent)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "3rem", fontWeight: 600 }}>Beyond Tech</div>
         </Reveal>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1rem" }} className="responsive-three-col">
-          {["Musical Theatre", "Filipino Culture, History, & Community", "Films", "Creative & Fiction Writing", "Concerts & Festivals", "Food"].map((item, i) => (
+          {["Musical Theatre", "Filipino Culture, History, & Community", "Creative Writing", "Films", "Concerts & Festivals", "Food"].map((item, i) => (
             <Reveal key={item} delay={i * 0.05}>
               <div style={{
                 padding: "1.2rem 1.4rem", borderRadius: 8,
@@ -587,10 +640,11 @@ export default function Portfolio() {
         }
       `}</style>
 
-      <Sidebar current={page} onNavigate={navigate} />
+      <TopNav current={page} onNavigate={navigate} />
+      <MobileNav current={page} onNavigate={navigate} />
 
       <main id="main-content" className="main-area" style={{
-        marginLeft: 260, padding: "0 4rem", minHeight: "100vh",
+        marginLeft: 0, padding: "0 4rem", paddingTop: "5rem", minHeight: "100vh",
         opacity: transitioning ? 0 : 1,
         transform: transitioning ? "translateY(10px)" : "translateY(0)",
         transition: "opacity 0.35s ease, transform 0.35s ease",
