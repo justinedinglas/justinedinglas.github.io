@@ -238,9 +238,8 @@ function HomePage() {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1.3fr", gap: "4rem", alignItems: "start" }} className="responsive-grid">
           <Reveal>
             <div>
-              <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.7rem", color: "var(--accent)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "1.5rem", fontWeight: 600 }}>About</div>
-              <div style={{ aspectRatio: "3/4", borderRadius: 12, overflow: "hidden", background: "linear-gradient(135deg, var(--accent-muted), var(--accent-muted))", border: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <span style={{ fontFamily: "var(--font-accent)", fontSize: "0.73rem", color: "var(--text-muted)", letterSpacing: "0.06em", textTransform: "uppercase" }}>your photo here</span>
+              <div style={{ aspectRatio: "3/4", borderRadius: 12, overflow: "hidden", border: "1px solid var(--border)",}}>
+              <img src="/justine.jpg" alt="Justine Dinglas" style={{ width: "100%", height: "100%", objectFit: "cover",}} />
               </div>
             </div>
           </Reveal>
@@ -299,9 +298,9 @@ function HomePage() {
 /* ── WORK ── */
 function WorkPage() {
   const projects = [
-    { num: "01", tags: "Product Management · UX Research · Senior Capstone", title: "sip'd — Cafe Discovery App", challenge: "Cafe enthusiasts struggle to find cafes matching their study/social needs", approach: "User interviews + persona development + iterative UX flows", outcome: "Community-first cafe discovery app with warm brand identity", techs: ["UX Research", "Project Management", "Figma", "React", "Node.js", "Team Lead"], gradient: "linear-gradient(135deg, #2D5A3D, #4A8C5E)" },
-    { num: "02", tags: "Product Management · Externship", title: "BeReal — 3-Second Voice Note Reactions", challenge: "Text reactions feel impersonal on an authenticity-first platform", approach: "PRD-lite + screen flow mapping + clickable prototype", outcome: "Voice note feature balancing authenticity with engagement", techs: ["PRD", "Prototyping", "User Flows", "Product Strategy"], gradient: "linear-gradient(135deg, #1A1A2E, #3D3D6B)" },
-    { num: "03", tags: "Creative · Musical Theatre", title: "Katotohanan — Original Filipino Musical", challenge: "Amplifying the untold struggles of the Philippines' indigenous communities to life through original musical theatre", approach: "Playwriting + production management + community casting", outcome: "Sparked conversation around power, truth, and oppression, 1,000+ attendees at PCN, Hollywood Fringe Festival production", techs: ["Playwright", "Director", "Producer", "Storytelling"], gradient: "linear-gradient(135deg, #6B2B3A, #8C4A5A)" },
+    { num: "01", tags: "Product Management · UX Research · Senior Capstone", title: "sip'd — Cafe Discovery App", challenge: "Cafe enthusiasts struggle to find cafes matching their study/social needs", approach: "User interviews + persona development + iterative UX flows", outcome: "Community-first cafe discovery app with warm brand identity", techs: ["UX Research", "Project Management", "Figma", "React", "Node.js", "Team Lead"], image: "/sipd.jpg", gradient: "linear-gradient(135deg, #2D5A3D, #4A8C5E)" },
+    { num: "02", tags: "Product Management · Externship", title: "BeReal — 3-Second Voice Note Reactions", challenge: "Text reactions feel impersonal on an authenticity-first platform", approach: "PRD-lite + screen flow mapping + clickable prototype", outcome: "Voice note feature balancing authenticity with engagement", techs: ["PRD", "Prototyping", "User Flows", "Product Strategy"], image: "/bereal.jpg", gradient: "linear-gradient(135deg, #1A1A2E, #3D3D6B)" },
+    { num: "03", tags: "Creative · Musical Theatre", title: "Katotohanan — Original Filipino Musical", challenge: "Amplifying the untold struggles of the Philippines' indigenous communities to life through original musical theatre", approach: "Playwriting + production management + community casting", outcome: "Sparked conversation around power, truth, and oppression, 1,000+ attendees at PCN, Hollywood Fringe Festival production", techs: ["Playwright", "Director", "Producer", "Storytelling"], image: "/katotohanan.jpg", gradient: "linear-gradient(135deg, #6B2B3A, #8C4A5A)" },
   ];
   return (
     <div>
@@ -317,7 +316,7 @@ function WorkPage() {
               <div>
                 <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.7rem", color: "var(--accent)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.8rem", fontWeight: 600 }}>{p.tags}</div>
                 <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 3vw, 2.2rem)", lineHeight: 1.2, marginBottom: "2rem", color: "var(--text)" }}>{p.title}</h2>
-                <div style={{ width: "100%", aspectRatio: "16/8", borderRadius: 12, background: p.gradient, marginBottom: "2rem", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-accent)", fontSize: "0.78rem", color: "rgba(255,255,255,0.35)", letterSpacing: "0.06em", textTransform: "uppercase" }}>project visual</div>
+                <div style={{ width: "100%", aspectRatio: "16/8", borderRadius: 12, overflow: "hidden", marginBottom: "2rem", background: p.gradient }}><img src={p.image} alt={p.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} /></div>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "2rem", marginBottom: "2rem" }} className="responsive-three-col">
                   {[{ label: "Challenge", val: p.challenge }, { label: "Approach", val: p.approach }, { label: "Outcome", val: p.outcome }].map(d => (
                     <div key={d.label}>
@@ -405,7 +404,7 @@ function ContactPage() {
       <section style={{ paddingTop: "8rem", minHeight: "80vh", display: "flex", flexDirection: "column", justifyContent: "center" }}>
         <Reveal><div style={{ fontFamily: "var(--font-accent)", fontSize: "0.7rem", color: "var(--text-muted)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "1.5rem" }}>Get in Touch</div></Reveal>
         <Reveal delay={0.1}><h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.5rem, 6vw, 4.5rem)", lineHeight: 1.05, letterSpacing: "-0.03em", color: "var(--text)", marginBottom: "2rem", maxWidth: 700 }}>Let's build something <span style={{ color: "var(--accent)" }}>together</span>.</h1></Reveal>
-        <Reveal delay={0.2}><p style={{ color: "var(--text-muted)", fontSize: "1.05rem", maxWidth: 500, lineHeight: 1.8, marginBottom: "3rem" }}>I'm currently looking for internships in UX research, product management, and software development. But I'm always looking to learn and connect—especially with those open to mentorship or just to have an insightful conversation!</p></Reveal>
+        <Reveal delay={0.2}><p style={{ color: "var(--text-muted)", fontSize: "1.05rem", maxWidth: 500, lineHeight: 1.8, marginBottom: "3rem" }}>I'm currently in search for internships in UX research, product management, and software development. But I'm always looking to learn and connect—especially with those open to mentorship or just to have an insightful conversation!</p></Reveal>
         <Reveal delay={0.3}>
           <div style={{ display: "flex", flexDirection: "column", gap: "1.2rem" }}>
             {[
