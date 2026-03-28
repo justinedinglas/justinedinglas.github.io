@@ -1002,20 +1002,24 @@ function BerealCaseStudy({ onNavigate }) {
 }
 /* ── MAIN ── */
 export default function Portfolio() {
-  const [page, setPage] = useState("home");
+  const [page, setPage] = useState(() => {
+  const hash = window.location.hash.replace("#", "");
+  return hash || "home";
+});
   const [transitioning, setTransitioning] = useState(false);
   const [mode, setMode] = useState("light");
   const t = themes[mode];
   const toggle = useCallback(() => setMode(m => m === "dark" ? "light" : "dark"), []);
   const navigate = useCallback((newPage) => {
-    if (newPage === page) return;
-    setTransitioning(true);
-    setTimeout(() => {
-      setPage(newPage);
-      window.scrollTo({ top: 0, behavior: "instant" });
-      setTimeout(() => setTransitioning(false), 50);
-    }, 350);
-  }, [page]);
+  if (newPage === page) return;
+  setTransitioning(true);
+  window.location.hash = newPage === "home" ? "" : newPage;
+  setTimeout(() => {
+    setPage(newPage);
+    window.scrollTo({ top: 0, behavior: "instant" });
+    setTimeout(() => setTransitioning(false), 50);
+  }, 350);
+}, [page]);
 
   return (
     <ThemeCtx.Provider value={{ mode, toggle }}>
