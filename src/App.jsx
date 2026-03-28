@@ -296,11 +296,11 @@ function HomePage() {
 }
 
 /* ── WORK ── */
-function WorkPage() {
+function WorkPage({ onNavigate }) {
   const projects = [
-    { num: "01", tags: "Product Management · UX Research · Senior Capstone", title: "sip'd — Cafe Discovery App", challenge: "Cafe enthusiasts struggle to find cafes matching their study/social needs", approach: "User interviews + persona development + iterative UX flows", outcome: "Community-first cafe discovery app with warm brand identity", techs: ["UX Research", "Project Management", "Figma", "React", "Node.js", "Team Lead"], image: "/sipd.jpg", gradient: "linear-gradient(135deg, #2D5A3D, #4A8C5E)" },
-    { num: "02", tags: "Product Management · Externship", title: "BeReal — 3-Second Voice Note Reactions", challenge: "Text reactions feel impersonal on an authenticity-first platform", approach: "PRD-lite + screen flow mapping + clickable prototype", outcome: "Voice note feature balancing authenticity with engagement", techs: ["PRD", "Prototyping", "User Flows", "Product Strategy"], image: "/bereal.jpg", gradient: "linear-gradient(135deg, #1A1A2E, #3D3D6B)" },
-    { num: "03", tags: "Creative · Musical Theatre", title: "Katotohanan — Original Filipino Musical", challenge: "Amplifying the untold struggles of the Philippines' indigenous communities to life through original musical theatre", approach: "Playwriting + production management + community casting", outcome: "Sparked conversation around power, truth, and oppression, 1,000+ attendees at PCN, Hollywood Fringe Festival production", techs: ["Playwright", "Director", "Producer", "Storytelling"], image: "/katotohanan.jpg", gradient: "linear-gradient(135deg, #6B2B3A, #8C4A5A)" },
+    { num: "01", tags: "Product Management · UX Research · Senior Capstone", title: "sip'd — Cafe Discovery App", challenge: "Cafe enthusiasts struggle to find cafes matching their study/social needs", approach: "User interviews + persona development + iterative UX flows", outcome: "Community-first cafe discovery app with warm brand identity", techs: ["UX Research", "Project Management", "Figma", "React", "Node.js", "Team Lead"], image: "/sipd.jpg", gradient: "linear-gradient(135deg, #2D5A3D, #4A8C5E)", caseStudy: "case-sipd" },
+    { num: "02", tags: "Product Management · UX Research · Externship", title: "BeReal — 3-Second Voice Note Reactions", challenge: "Text reactions feel impersonal on an authenticity-first platform", approach: "PRD-lite + screen flow mapping + clickable prototype", outcome: "Voice note feature balancing authenticity with engagement", techs: ["PRD", "Prototyping", "User Flows", "Product Strategy"], image: "/bereal.jpg", gradient: "linear-gradient(135deg, #1A1A2E, #3D3D6B)", caseStudy: "case-bereal" },
+    { num: "03", tags: "Creative Writing · Musical Theatre", title: "Katotohanan — Original Filipino Musical", challenge: "Amplifying the untold struggles of the Philippines' indigenous communities to life through original musical theatre", approach: "Playwriting + production management + community casting", outcome: "Sparked conversation around power, truth, and oppression, 1,000+ attendees at PCN, Hollywood Fringe Festival production", techs: ["Playwright", "Director", "Producer", "Storytelling"], image: "/katotohanan.jpg", gradient: "linear-gradient(135deg, #6B2B3A, #8C4A5A)" },
   ];
   return (
     <div>
@@ -328,6 +328,18 @@ function WorkPage() {
                 <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                   {p.techs.map(t => (<span key={t} style={{ fontFamily: "var(--font-accent)", fontSize: "0.66rem", padding: "0.35rem 0.9rem", borderRadius: 100, border: "1px solid var(--border)", color: "var(--text-muted)", letterSpacing: "0.04em" }}>{t}</span>))}
                 </div>
+                {p.caseStudy && (
+                  <button onClick={() => onNavigate(p.caseStudy)} style={{
+                    marginTop: "1.5rem", padding: "0.7rem 1.5rem", borderRadius: 100, border: "none", cursor: "pointer",
+                    background: "var(--accent)", color: "#fff",
+                    fontFamily: "var(--font-accent)", fontSize: "0.72rem", fontWeight: 600,
+                    letterSpacing: "0.06em", textTransform: "uppercase",
+                    transition: "transform 0.3s, opacity 0.3s",
+                  }}
+                    onMouseEnter={e => { e.target.style.transform = "translateY(-2px)"; e.target.style.opacity = "0.9"; }}
+                    onMouseLeave={e => { e.target.style.transform = "translateY(0)"; e.target.style.opacity = "1"; }}
+                  >View Case Study →</button>
+                )}
               </div>
             </div>
           </Reveal>
@@ -336,7 +348,6 @@ function WorkPage() {
     </div>
   );
 }
-
 /* ── RESUME ── */
 function ResumePage() {
   const experience = [
@@ -427,7 +438,568 @@ function ContactPage() {
     </div>
   );
 }
+/* ── SIP'D CASE STUDY ── */
+function SipdCaseStudy({ onNavigate }) {
+  const Section = ({ label, title, children }) => (
+    <section style={{ padding: "4rem 0", borderTop: "1px solid var(--border)" }}>
+      <Reveal>
+        <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.7rem", color: "var(--accent)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "1rem", fontWeight: 600 }}>{label}</div>
+        {title && <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 3vw, 2rem)", lineHeight: 1.2, marginBottom: "1.5rem", color: "var(--text)" }}>{title}</h2>}
+      </Reveal>
+      <Reveal delay={0.08}>{children}</Reveal>
+    </section>
+  );
 
+  return (
+    <div>
+      {/* Hero */}
+      <section style={{ paddingTop: "8rem", paddingBottom: "2rem" }}>
+        <Reveal>
+          <button onClick={() => onNavigate("work")} style={{
+            background: "none", border: "none", cursor: "pointer", padding: 0, marginBottom: "2rem",
+            fontFamily: "var(--font-accent)", fontSize: "0.72rem", color: "var(--text-muted)",
+            letterSpacing: "0.06em", display: "flex", alignItems: "center", gap: "0.4rem", transition: "color 0.3s",
+          }}
+            onMouseEnter={e => e.currentTarget.style.color = "var(--accent)"}
+            onMouseLeave={e => e.currentTarget.style.color = "var(--text-muted)"}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Back to Work
+          </button>
+        </Reveal>
+        <Reveal delay={0.05}>
+          <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.7rem", color: "var(--accent)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "1rem", fontWeight: 600 }}>Case Study · Senior Capstone</div>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.5rem, 6vw, 4rem)", lineHeight: 1.05, letterSpacing: "-0.03em", color: "var(--text)", marginBottom: "1.5rem" }}>sip'd</h1>
+        </Reveal>
+        <Reveal delay={0.15}>
+          <p style={{ fontSize: "1.15rem", color: "var(--text-muted)", maxWidth: 600, lineHeight: 1.75, marginBottom: "2rem" }}>
+            A cafe discovery app that lets users find and rate cafes by purpose — studying, meetings, solo work, or socializing — across functional criteria like WiFi, noise level, and outlet availability.
+          </p>
+        </Reveal>
+        <Reveal delay={0.2}>
+          <div style={{ display: "flex", gap: "3rem", flexWrap: "wrap" }}>
+            {[{ l: "Role", v: "Product Manager" }, { l: "Team", v: "Justine D., Morsey R., Lee S., Manjot S., and Jomel T." }, { l: "Timeline", v: "Jan 2026 — Present" }, { l: "Tools", v: "Figma, React, Node.js, Notion" }].map(d => (
+              <div key={d.l}>
+                <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.6rem", color: "var(--text-muted)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "0.3rem" }}>{d.l}</div>
+                <div style={{ fontSize: "0.95rem", color: "var(--text)" }}>{d.v}</div>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+      </section>
+
+      {/* Hero image */}
+      <section style={{ padding: "2rem 0" }}>
+        <Reveal>
+          <div style={{ width: "100%", aspectRatio: "16/8", borderRadius: 12, overflow: "hidden", background: "linear-gradient(135deg, #2D5A3D, #4A8C5E)" }}>
+            <img src="/sipd.jpg" alt="sip'd app" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          </div>
+        </Reveal>
+      </section>
+
+      {/* Problem */}
+      <Section label="The Problem" title="Current platforms prioritize aesthetics over function">
+        <p style={{ color: "var(--text-muted)", fontSize: "0.98rem", lineHeight: 1.8, marginBottom: "1.2rem", maxWidth: 700 }}>
+          Students searching for a quiet study spot, professionals needing a reliable place for coffee meetings, or remote workers seeking consistent WiFi and power outlets must rely on trial-and-error or sift through irrelevant reviews to determine if a cafe will actually meet their needs.
+        </p>
+        <p style={{ color: "var(--text-muted)", fontSize: "0.98rem", lineHeight: 1.8, marginBottom: "2rem", maxWidth: 700 }}>
+          Platforms like Yelp and Google Maps prioritize aesthetics and food quality, but none help users find a cafe that's actually functional for their intended purpose. The absence of purpose-specific, crowd-sourced data about noise levels, seating availability, WiFi reliability, and outlet access means users lack the information necessary to make informed decisions.
+        </p>
+        <div style={{ borderLeft: "2px solid var(--accent)", paddingLeft: "1.2rem", marginBottom: "1rem" }}>
+          <p style={{ color: "var(--text)", fontSize: "0.95rem", lineHeight: 1.7, fontStyle: "italic", marginBottom: "0.3rem" }}>"The Yelp pictures are misleading, and then there's no seats, or it's a big cafe, but all the seats are taken."</p>
+          <p style={{ color: "var(--text-muted)", fontSize: "0.78rem" }}>— Interviewee, software engineer and MBA student</p>
+        </div>
+        <div style={{ borderLeft: "2px solid var(--accent)", paddingLeft: "1.2rem" }}>
+          <p style={{ color: "var(--text)", fontSize: "0.95rem", lineHeight: 1.7, fontStyle: "italic", marginBottom: "0.3rem" }}>"It's super frustrating when all the seats are taken. Or we find a good seat, but it doesn't have a charger. So we have to change our plans."</p>
+          <p style={{ color: "var(--text-muted)", fontSize: "0.78rem" }}>— Interviewee, Biology student, Long Beach City College</p>
+        </div>
+      </Section>
+
+      {/* Research */}
+      <Section label="Research" title="15 semi-structured interviews across diverse cafe-goers">
+        <p style={{ color: "var(--text-muted)", fontSize: "0.98rem", lineHeight: 1.8, marginBottom: "2rem", maxWidth: 700 }}>
+          We conducted 15 semi-structured interviews, each lasting 20-30 minutes, with participants ranging from high school students to working professionals (ages 14-34). Interviews followed a 23-question framework across six sections: background and context, current behavior, pain points and frustrations, tools and workarounds, behavior patterns and preferences, and reaction to concept.
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem", marginBottom: "2.5rem" }} className="responsive-three-col">
+          {[
+            { n: "15", l: "User Interviews", d: "Semi-structured, 20-30 min each" },
+            { n: "23", l: "Question Framework", d: "Across 6 research sections" },
+            { n: "15/15", l: "Reported Frustration", d: "Every user had cafe discovery pain points" },
+          ].map(s => (
+            <div key={s.l} style={{ padding: "1.5rem", borderRadius: 12, border: "1px solid var(--border)" }}>
+              <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.8rem", color: "var(--accent)", marginBottom: "0.3rem" }}>{s.n}</div>
+              <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.65rem", color: "var(--text-muted)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.5rem" }}>{s.l}</div>
+              <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", lineHeight: 1.6 }}>{s.d}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Pain points */}
+        <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.15rem", marginBottom: "1.2rem", color: "var(--text)" }}>Top Pain Points</h3>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "2.5rem" }} className="responsive-grid">
+          {[
+            { title: "Seating Unavailability", desc: "Arriving to find no open tables, especially during midterm/finals seasons" },
+            { title: "Outlet Scarcity", desc: "Many cafes have few or no outlets, and those that exist are often occupied" },
+            { title: "Misleading Online Info", desc: "Photos that make cafes look spacious when they're cramped, or Google 'busy times' that reflect line length rather than table availability" },
+            { title: "Wasted Trips", desc: "Driving to a cafe only to leave immediately because it doesn't meet basic needs" },
+            { title: "Unreliable Hours", desc: "Cafes closing earlier than listed, especially for late-night users" },
+            { title: "Inadequate Workspace", desc: "Small or bolted-down tables that make laptop-based studying impossible" },
+          ].map(p => (
+            <div key={p.title} style={{ padding: "1.2rem", borderRadius: 10, border: "1px solid var(--border)" }}>
+              <h4 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "0.92rem", marginBottom: "0.4rem", color: "var(--text)" }}>{p.title}</h4>
+              <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", lineHeight: 1.6 }}>{p.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Attribute rankings */}
+        <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.15rem", marginBottom: "1.2rem", color: "var(--text)" }}>Attribute Priority Rankings</h3>
+        <p style={{ color: "var(--text-muted)", fontSize: "0.92rem", lineHeight: 1.7, marginBottom: "1.5rem", maxWidth: 600 }}>
+          We asked interviewees to rate the importance of cafe attributes on a 1-5 scale. These priorities directly informed our rating system design:
+        </p>
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem", maxWidth: 500 }}>
+          {[
+            { attr: "Outlet Availability", rating: 4.3, rank: 1 },
+            { attr: "WiFi Reliability", rating: 4.1, rank: 2 },
+            { attr: "Seating Comfort", rating: 3.7, rank: 3 },
+            { attr: "Crowd Size / Busyness", rating: 3.6, rank: 4 },
+            { attr: "Noise Level", rating: 3.2, rank: 5 },
+            { attr: "Lighting", rating: 2.7, rank: 6 },
+          ].map(a => (
+            <div key={a.attr} style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+              <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.6rem", color: "var(--text-muted)", width: 20, textAlign: "right" }}>#{a.rank}</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.2rem" }}>
+                  <span style={{ fontSize: "0.88rem", color: "var(--text)" }}>{a.attr}</span>
+                  <span style={{ fontFamily: "var(--font-accent)", fontSize: "0.78rem", color: "var(--accent)", fontWeight: 600 }}>{a.rating}</span>
+                </div>
+                <div style={{ width: "100%", height: 4, borderRadius: 2, background: "var(--border)" }}>
+                  <div style={{ width: `${(a.rating / 5) * 100}%`, height: "100%", borderRadius: 2, background: "var(--accent)", transition: "width 0.6s ease" }} />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Key Insights */}
+      <Section label="Key Insights" title="5 strategic findings that shaped sip'd">
+        <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+          {[
+            { n: "01", title: "The search process itself is the core problem", desc: "Every persona loses time before they even arrive at a cafe. The friction isn't at the cafe — it's in finding the right one." },
+            { n: "02", title: "Real-time data is the universal unmet need", desc: "No current tool provides live seating, outlet, or crowd information. This is the gap sip'd fills." },
+            { n: "03", title: "Users already build informal systems", desc: "Mental cafe rotations, group chat intel, personal Google Sheets. These DIY workarounds signal strong latent demand for a formalized tool." },
+            { n: "04", title: "Infrastructure filters belong front and center", desc: "Outlets, WiFi, and table size are not review topics — they are first-class search filters that should be surfaced before a user ever reads a review." },
+            { n: "05", title: "Low-friction contribution works across all personas", desc: "Even casual visitors said they would rate a cafe if prompted with a quick one-tap interaction post-visit. The contribution model should be lightweight, not form-heavy." },
+          ].map(ins => (
+            <div key={ins.n} style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "1.5rem", alignItems: "start" }} className="responsive-grid">
+              <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.5rem", color: "var(--accent)", opacity: 0.3, lineHeight: 1, minWidth: 36 }}>{ins.n}</div>
+              <div>
+                <h4 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1rem", marginBottom: "0.4rem", color: "var(--text)" }}>{ins.title}</h4>
+                <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", lineHeight: 1.65 }}>{ins.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Personas */}
+      <Section label="Personas" title="3 distinct user archetypes from 15 interviews">
+        <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", lineHeight: 1.8, marginBottom: "2rem", maxWidth: 700 }}>
+          Each persona represents a cluster of shared motivations, behaviors, and pain points observed across multiple interviewees.
+        </p>
+        <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+          {[
+            {
+              name: "The Social Coordinator", emoji: "🎉",
+              desc: "A sporadic cafe visitor who prioritizes a comfortable, 'good-vibes' location to socialize with friends without having to fight cafe crowds. Seat availability, crowd levels, menu variety, and overall aesthetics are paramount.",
+              behavior: "Quick deciders — 10 to 15 minutes to choose. Uses social media, friend recs, and previously enjoyed spots. Will leave or switch plans entirely if a cafe is too busy.",
+              quote: '"The most frustrating thing is definitely finding enough seating for all of my friends."',
+              quoteBy: "— Interviewee, recent Engineering grad",
+              needs: "Real-time crowd and seating indicators, menu previews, honest environment reviews",
+            },
+            {
+              name: "The Productivity Power-User", emoji: "💻",
+              desc: "Needs a reliable cafe workspace for long work sessions 2-3 times a week. Approaches cafes with a productivity-first view — charging access, reliable WiFi, seating availability, and adequate table size are top priorities.",
+              behavior: "Relies on Yelp, Maps, and personal lists of known reliable spots. Leaves immediately if no visible seating or outlets. Wastes productive time repeating this process until a suitable cafe is found.",
+              quote: '"I would love to know if they have an adequate amount of chargers. That\'s super important."',
+              quoteBy: "— Interviewee, Biology student, Long Beach City College",
+              needs: "Filters for outlets, WiFi, table size, seating availability. Real-time occupancy data.",
+            },
+            {
+              name: "The Data-Driven Local", emoji: "📊",
+              desc: "Has found the perfect rotation of cafes and won't switch without a data-backed reason. Often mid-career professionals or graduate students. Prioritizes technical metrics like parking ease, drink quality, or WiFi speed.",
+              behavior: "Rarely looks at reviews — finds them too subjective. Some already track and rank cafes manually in spreadsheets. Primary recommenders in their social circles.",
+              quote: '"I hardly look at the reviews — I just try it out for the first time, and if it doesn\'t end up being a place I like, I just scratch it off my list."',
+              quoteBy: "— Interviewee, Business Administration student",
+              needs: "Personal cafe log, data-driven rankings, verified parking info, advanced tracking features",
+            },
+          ].map(p => (
+            <div key={p.name} style={{ padding: "2rem", borderRadius: 14, border: "1px solid var(--border)" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.8rem", marginBottom: "1rem" }}>
+                <span style={{ fontSize: "1.5rem" }}>{p.emoji}</span>
+                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.15rem", color: "var(--text)" }}>{p.name}</h3>
+              </div>
+              <p style={{ color: "var(--text-muted)", fontSize: "0.92rem", lineHeight: 1.7, marginBottom: "1rem" }}>{p.desc}</p>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem", marginBottom: "1rem" }} className="responsive-grid">
+                <div>
+                  <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.6rem", color: "var(--accent)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.4rem", fontWeight: 600 }}>Behavior</div>
+                  <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", lineHeight: 1.6 }}>{p.behavior}</p>
+                </div>
+                <div>
+                  <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.6rem", color: "var(--accent)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.4rem", fontWeight: 600 }}>Key Needs</div>
+                  <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", lineHeight: 1.6 }}>{p.needs}</p>
+                </div>
+              </div>
+              <div style={{ borderLeft: "2px solid var(--accent)", paddingLeft: "1rem" }}>
+                <p style={{ color: "var(--text)", fontSize: "0.9rem", fontStyle: "italic", marginBottom: "0.2rem", lineHeight: 1.6 }}>{p.quote}</p>
+                <p style={{ color: "var(--text-muted)", fontSize: "0.75rem" }}>{p.quoteBy}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Use Cases */}
+      <Section label="Use Cases" title="Real scenarios that illustrate the problem">
+        <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+          {[
+            {
+              title: "Saturday Brunch with the Group Chat",
+              context: "Chan, 27, needs to find a cafe that can seat 13 friends for a brunch hangout. Everyone's scattered across the city.",
+              friction: "25 minutes bouncing between TikTok, Google Maps, and group chat screenshots. Photos are misleading — one cafe looks spacious but reviews say it's cramped. Top pick doesn't take reservations.",
+              outcome: "They luck into a large table, but friends are disappointed by the limited food menu (not visible online). The entire planning process could have been 5 minutes with the right info upfront.",
+              insight: "Group seating capacity and visible menus are the #1 decision-unlockers for social planners.",
+            },
+            {
+              title: "Midterm Week Workspace Hunt",
+              context: "Karina, 22, a CS major, needs a 4-hour study block before a 7PM exam. Campus library is packed by 9AM.",
+              friction: "Drives 12 minutes to their #1 pick — tables taken, no visible outlets. Drives to backup #2, finds one small table. WiFi is barely functional.",
+              outcome: "Hotspots from phone, gets 2.5 hours of productive work instead of 4. Third time this month they've lost study time to the 'find a workspace' problem.",
+              insight: "The wasted trip cost isn't just time — it's lost productivity that can't be recovered before an exam.",
+            },
+            {
+              title: "Tuesday Night, the 9 PM Productivity Window",
+              context: "Alex, 23, just finished a long shift and needs a quiet cafe open past 10 PM. Home is too distracting.",
+              friction: "Googles 'cafes open late near me' — results are outdated. Checks 6 cafes on Maps one by one. Drives to the 11 PM option — they closed early tonight.",
+              outcome: "Ends up at a 24-hour fast food spot with poor lighting and noise. Gets 90 minutes of work instead of 3 hours.",
+              insight: "Verified, real-time operating hours are critical. Late-night users are underserved and highly loyal once they find reliable spots.",
+            },
+          ].map((uc, i) => (
+            <div key={uc.title} style={{ padding: "2rem", borderRadius: 14, border: "1px solid var(--border)" }}>
+              <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.6rem", color: "var(--text-muted)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.5rem" }}>Use Case {i + 1}</div>
+              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.1rem", color: "var(--text)", marginBottom: "1rem" }}>{uc.title}</h3>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1.5rem", marginBottom: "1rem" }} className="responsive-grid">
+                <div>
+                  <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.6rem", color: "var(--accent)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.4rem", fontWeight: 600 }}>Context</div>
+                  <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", lineHeight: 1.6 }}>{uc.context}</p>
+                </div>
+                <div>
+                  <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.6rem", color: "var(--accent)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.4rem", fontWeight: 600 }}>Friction</div>
+                  <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", lineHeight: 1.6 }}>{uc.friction}</p>
+                </div>
+              </div>
+              <div style={{ marginBottom: "1rem" }}>
+                <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.6rem", color: "var(--accent)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.4rem", fontWeight: 600 }}>Outcome</div>
+                <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", lineHeight: 1.6 }}>{uc.outcome}</p>
+              </div>
+              <div style={{ background: "var(--accent-muted)", padding: "1rem", borderRadius: 8 }}>
+                <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.6rem", color: "var(--accent)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.3rem", fontWeight: 600 }}>Key Insight</div>
+                <p style={{ color: "var(--text)", fontSize: "0.88rem", lineHeight: 1.6, fontWeight: 500 }}>{uc.insight}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Solution */}
+      <Section label="The Solution" title="A purpose-driven rating system">
+        <p style={{ color: "var(--text-muted)", fontSize: "0.98rem", lineHeight: 1.8, marginBottom: "2rem", maxWidth: 700 }}>
+          sip'd lets users rate cafes across functional attributes — mapped against user purposes like studying, meetings, solo work, socializing, and casual visits. This creates a purpose-driven discovery experience that goes far beyond a single star rating. Infrastructure filters like outlets, WiFi, and table size are surfaced as first-class search criteria, not buried in reviews.
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem" }} className="responsive-three-col">
+          {[
+            { attr: "Outlet Availability", rating: "4.3 avg importance" },
+            { attr: "WiFi Reliability", rating: "4.1 avg importance" },
+            { attr: "Seating Comfort", rating: "3.7 avg importance" },
+            { attr: "Crowd Size", rating: "3.6 avg importance" },
+            { attr: "Noise Level", rating: "3.2 avg importance" },
+            { attr: "Lighting", rating: "2.7 avg importance" },
+          ].map((a, i) => (
+            <div key={a.attr} style={{ padding: "1rem", borderRadius: 8, border: "1px solid var(--border)", textAlign: "center" }}>
+              <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.6rem", color: "var(--text-muted)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.3rem" }}>#{i + 1}</div>
+              <div style={{ fontSize: "0.9rem", color: "var(--text)", fontWeight: 500, marginBottom: "0.2rem" }}>{a.attr}</div>
+              <div style={{ fontSize: "0.72rem", color: "var(--accent)", fontFamily: "var(--font-accent)" }}>{a.rating}</div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* My Role */}
+      <Section label="My Role" title="What I owned">
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2rem" }} className="responsive-grid">
+          {[
+            { title: "Product Strategy", desc: "Led product strategy from problem discovery through MVP definition. Authored the PRD and operational playbooks for a cross-functional team of 5." },
+            { title: "User Research", desc: "Co-led 15 semi-structured user interviews using a 23-question framework, synthesized findings into 3 detailed personas and use-case scenario maps, and translated raw interview data into actionable product direction." },
+            { title: "Team Operations", desc: "Established operational processes from scratch — task tracking in Notion, sprint planning, and conflict resolution protocols — ensuring on-time delivery across all milestones." },
+            { title: "Competitive Analysis", desc: "Executed competitive analysis across 5+ platforms (Yelp, Google Maps, Beli, Instagram, TikTok), identifying the market gap in purpose-driven cafe discovery and synthesizing adoption insights into go-to-market positioning." },
+          ].map(r => (
+            <div key={r.title}>
+              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1rem", marginBottom: "0.8rem", color: "var(--text)" }}>{r.title}</h3>
+              <p style={{ color: "var(--text-muted)", fontSize: "0.92rem", lineHeight: 1.7 }}>{r.desc}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Reflection */}
+      <Section label="Reflection" title="What I learned">
+        <p style={{ color: "var(--text-muted)", fontSize: "0.98rem", lineHeight: 1.8, marginBottom: "1.2rem", maxWidth: 700 }}>
+          sip'd has been one of the most full-stack PM experiences I've had — going from problem discovery all the way to beginning to build something people would actually use. It taught me how to balance user needs with technical constraints, how to keep a team aligned when things get ambiguous, and how to make product decisions grounded in real data rather than assumptions.
+        </p>
+      </Section>
+
+      {/* Back */}
+      <section style={{ padding: "3rem 0", borderTop: "1px solid var(--border)" }}>
+        <Reveal>
+          <button onClick={() => onNavigate("work")} style={{
+            background: "none", border: "none", cursor: "pointer", padding: 0,
+            fontFamily: "var(--font-accent)", fontSize: "0.72rem", color: "var(--text-muted)",
+            letterSpacing: "0.06em", display: "flex", alignItems: "center", gap: "0.4rem", transition: "color 0.3s",
+          }}
+            onMouseEnter={e => e.currentTarget.style.color = "var(--accent)"}
+            onMouseLeave={e => e.currentTarget.style.color = "var(--text-muted)"}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Back to All Projects
+          </button>
+        </Reveal>
+      </section>
+    </div>
+  );
+}
+/* ── BEREAL CASE STUDY ── */
+function BerealCaseStudy({ onNavigate }) {
+  const Section = ({ label, title, children }) => (
+    <section style={{ padding: "4rem 0", borderTop: "1px solid var(--border)" }}>
+      <Reveal>
+        <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.7rem", color: "var(--accent)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "1rem", fontWeight: 600 }}>{label}</div>
+        {title && <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 3vw, 2rem)", lineHeight: 1.2, marginBottom: "1.5rem", color: "var(--text)" }}>{title}</h2>}
+      </Reveal>
+      <Reveal delay={0.08}>{children}</Reveal>
+    </section>
+  );
+
+  return (
+    <div>
+      {/* Hero */}
+      <section style={{ paddingTop: "8rem", paddingBottom: "2rem" }}>
+        <Reveal>
+          <button onClick={() => onNavigate("work")} style={{
+            background: "none", border: "none", cursor: "pointer", padding: 0, marginBottom: "2rem",
+            fontFamily: "var(--font-accent)", fontSize: "0.72rem", color: "var(--text-muted)",
+            letterSpacing: "0.06em", display: "flex", alignItems: "center", gap: "0.4rem", transition: "color 0.3s",
+          }}
+            onMouseEnter={e => e.currentTarget.style.color = "var(--accent)"}
+            onMouseLeave={e => e.currentTarget.style.color = "var(--text-muted)"}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Back to Work
+          </button>
+        </Reveal>
+        <Reveal delay={0.05}>
+          <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.7rem", color: "var(--accent)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "1rem", fontWeight: 600 }}>Case Study · PM Externship</div>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.2rem, 5vw, 3.5rem)", lineHeight: 1.08, letterSpacing: "-0.03em", color: "var(--text)", marginBottom: "1.5rem" }}>BeReal: 3-Second Voice Note Reactions</h1>
+        </Reveal>
+        <Reveal delay={0.15}>
+          <p style={{ fontSize: "1.1rem", color: "var(--text-muted)", maxWidth: 600, lineHeight: 1.75, marginBottom: "2rem" }}>
+            Designing a voice reaction feature that keeps BeReal authentic while driving daily engagement. From 30 feature concepts to a validated prototype.
+          </p>
+        </Reveal>
+        <Reveal delay={0.2}>
+          <div style={{ display: "flex", gap: "3rem", flexWrap: "wrap" }}>
+            {[{ l: "Role", v: "Product Management Extern" }, { l: "Program", v: "Extern" }, { l: "Timeline", v: "Jan — Mar 2026" }, { l: "Deliverables", v: "PRD-lite, Prototype, Focus Group" }].map(d => (
+              <div key={d.l}>
+                <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.6rem", color: "var(--text-muted)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: "0.3rem" }}>{d.l}</div>
+                <div style={{ fontSize: "0.95rem", color: "var(--text)" }}>{d.v}</div>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+      </section>
+
+      {/* Hero image */}
+      <section style={{ padding: "2rem 0" }}>
+        <Reveal>
+          <div style={{ width: "100%", aspectRatio: "16/8", borderRadius: 12, overflow: "hidden", background: "linear-gradient(135deg, #1A1A2E, #3D3D6B)" }}>
+            <img src="/bereal.jpg" alt="BeReal voice reactions" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          </div>
+        </Reveal>
+      </section>
+
+      {/* Problem */}
+      <Section label="The Problem" title="Text reactions are starting to get old.">
+        <p style={{ color: "var(--text-muted)", fontSize: "0.98rem", lineHeight: 1.8, marginBottom: "1.2rem", maxWidth: 700 }}>
+          BeReal's entire identity is built on raw, unfiltered moments. But the reaction layer hasn't kept up. Emoji reactions and text comments get rather repetitive after a few posts, and that gap contributes to declining daily returns.
+        </p>
+        <p style={{ color: "var(--text-muted)", fontSize: "0.98rem", lineHeight: 1.8, maxWidth: 700 }}>
+          The question: how do you make reactions feel as authentic as the posts themselves, and can that authenticity become a re-engagement mechanic?
+        </p>
+      </Section>
+
+      {/* Ideation */}
+      <Section label="Ideation" title="30 concepts, narrowed to 1">
+        <p style={{ color: "var(--text-muted)", fontSize: "0.98rem", lineHeight: 1.8, marginBottom: "2rem", maxWidth: 700 }}>
+          I generated 30 feature concepts using a Problem → Idea → MAU Hypothesis framework, leveraging AI-assisted tools (Claude) for rapid ideation while validating every output against BeReal's product principles. Each idea was structured around a specific user behavior problem, a proposed solution, and a measurable retention hypothesis.
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem", marginBottom: "2rem" }} className="responsive-three-col">
+          {[
+            { n: "30", l: "Feature Concepts", d: "Generated via Problem → Idea → MAU framework" },
+            { n: "7", l: "Top Candidates", d: "Scored through RICE prioritization" },
+            { n: "19.2", l: "Winning RICE Score", d: "Voice Note Reactions — highest by 2x" },
+          ].map(s => (
+            <div key={s.l} style={{ padding: "1.5rem", borderRadius: 12, border: "1px solid var(--border)" }}>
+              <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.8rem", color: "var(--accent)", marginBottom: "0.3rem" }}>{s.n}</div>
+              <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.65rem", color: "var(--text-muted)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.5rem" }}>{s.l}</div>
+              <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", lineHeight: 1.6 }}>{s.d}</p>
+            </div>
+          ))}
+        </div>
+        <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.1rem", marginBottom: "1rem", color: "var(--text)" }}>Why Voice Note Reactions won</h3>
+        <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", lineHeight: 1.8, maxWidth: 700 }}>
+          It scored highest at 19.2 because it has the lowest effort in the table, and since effort is the denominator, a quick build amplifies everything else. It pairs strong reach and impact with high confidence — voice reactions outperform text in emotional resonance. It's also a natural fit for BeReal's values: a spontaneous 3-second reaction is harder to fake than a typed reply, so the engagement it drives feels genuine.
+        </p>
+      </Section>
+
+      {/* Competitive Benchmarking */}
+      <Section label="Research" title="Competitive benchmarking across social platforms">
+        <p style={{ color: "var(--text-muted)", fontSize: "0.98rem", lineHeight: 1.8, marginBottom: "2rem", maxWidth: 700 }}>
+          Analyzed how Instagram, Twitter (X), Snapchat, and TikTok approach authenticity, engagement mechanics, and social reactions to identify whitespace opportunities and validate the voice reaction concept.
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }} className="responsive-grid">
+          {[
+            { platform: "Instagram", finding: "Reactions are performative — likes, comments, and story replies prioritize polish over spontaneity" },
+            { platform: "Twitter / X", finding: "Engagement is text-heavy and public. No intimate reaction mechanic between friends" },
+            { platform: "Snapchat", finding: "Voice notes exist but aren't tied to specific content. No reaction-to-post voice mechanic" },
+            { platform: "TikTok", finding: "Duets and stitches are voice-adjacent but require content creation, not quick reactions" },
+          ].map(c => (
+            <div key={c.platform} style={{ padding: "1.2rem", borderRadius: 10, border: "1px solid var(--border)" }}>
+              <h4 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "0.92rem", marginBottom: "0.4rem", color: "var(--text)" }}>{c.platform}</h4>
+              <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", lineHeight: 1.6 }}>{c.finding}</p>
+            </div>
+          ))}
+        </div>
+        <div style={{ background: "var(--accent-muted)", padding: "1rem", borderRadius: 8, marginTop: "1.5rem", maxWidth: 700 }}>
+          <p style={{ color: "var(--text)", fontSize: "0.9rem", lineHeight: 1.6, fontWeight: 500 }}>Key gap: No major social platform offers a voice-based reaction tied to a specific post. The mechanic is entirely unoccupied.</p>
+        </div>
+      </Section>
+
+      {/* Solution */}
+      <Section label="The Solution" title="Hold, react, send — in 3 seconds">
+        <p style={{ color: "var(--text-muted)", fontSize: "0.98rem", lineHeight: 1.8, marginBottom: "2rem", maxWidth: 700 }}>
+          Hold the mic icon on any friend's BeReal to send an unedited 3-second voice reaction. The 3-second cap is the feature: it removes performance anxiety and keeps reactions as raw as the posts themselves. No editing, no replay before sending — the same logic as the dual-camera timer that made BeReal what it is.
+        </p>
+        <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.1rem", marginBottom: "1.2rem", color: "var(--text)" }}>10-screen clickable prototype</h3>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1.5rem", marginBottom: "2rem" }} className="responsive-grid">
+          {[
+            { label: "Happy Path", desc: "Onboarding → Feed → Recording → Confirmation → Notification → Playback" },
+            { label: "Error Flows", desc: "Two error state flows covering permission denial and recording failures" },
+            { label: "MAU Hooks", desc: "Four compounding retention hooks: streak cue, social proof, nostalgia strip, and tomorrow nudge" },
+            { label: "Event Logs", desc: "Annotated event logs for every screen documenting analytics triggers" },
+          ].map(f => (
+            <div key={f.label} style={{ padding: "1.2rem", borderRadius: 10, border: "1px solid var(--border)" }}>
+              <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.6rem", color: "var(--accent)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.4rem", fontWeight: 600 }}>{f.label}</div>
+              <p style={{ color: "var(--text-muted)", fontSize: "0.88rem", lineHeight: 1.6 }}>{f.desc}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Validation */}
+      <Section label="Validation" title="Focus group results">
+        <p style={{ color: "var(--text-muted)", fontSize: "0.98rem", lineHeight: 1.8, marginBottom: "2rem", maxWidth: 700 }}>
+          I ran a moderated focus group and collected survey responses with 7 participants to validate the concept, test the prototype, and surface edge cases.
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem", marginBottom: "2.5rem" }} className="responsive-three-col">
+          {[
+            { n: "4.1/5", l: "Overall Score", d: "Average across 7 survey respondents" },
+            { n: "4.4/5", l: "Authenticity Fit", d: "How well it fits BeReal's identity" },
+            { n: "7/7", l: "Would Recommend", d: "100% greenlight consensus" },
+          ].map(s => (
+            <div key={s.l} style={{ padding: "1.5rem", borderRadius: 12, border: "1px solid var(--border)" }}>
+              <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.8rem", color: "var(--accent)", marginBottom: "0.3rem" }}>{s.n}</div>
+              <div style={{ fontFamily: "var(--font-accent)", fontSize: "0.65rem", color: "var(--text-muted)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.5rem" }}>{s.l}</div>
+              <p style={{ color: "var(--text-muted)", fontSize: "0.85rem", lineHeight: 1.6 }}>{s.d}</p>
+            </div>
+          ))}
+        </div>
+
+        <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.1rem", marginBottom: "1.2rem", color: "var(--text)" }}>Key findings</h3>
+        <div style={{ display: "flex", flexDirection: "column", gap: "1.2rem", marginBottom: "2rem" }}>
+          {[
+            { title: "Notification curiosity drives app opens", desc: "All participants said they would open the app upon receiving a voice reaction. Unlike text that can be previewed from the lock screen, voice requires an app open — the format itself is the re-engagement mechanic.", quote: '"Instead of a normal text reaction where you could see what they say on the notification page, you can\'t really do that with sound. So it kind of makes me wanna go in the app to hear what they said."' },
+            { title: "The feature adds a meaningful new dimension", desc: "Participants compared it to when BeReal first introduced music — an added layer that makes the app more engaging without changing its identity.", quote: '"It\'s kind of a similar feel to when they first introduced adding music. Like, an added dimension to the app."' },
+            { title: "Review-before-send is the #1 requested change", desc: "Multiple participants felt sending automatically without hearing it back first was a gap, drawing comparison to how image reactions already work.", quote: '"With the image reactions you send, you\'re able to look at them before you send them. So I think a similar thing should be there with the voice reactions."' },
+          ].map(f => (
+            <div key={f.title} style={{ padding: "1.5rem", borderRadius: 12, border: "1px solid var(--border)" }}>
+              <h4 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "0.95rem", marginBottom: "0.5rem", color: "var(--text)" }}>{f.title}</h4>
+              <p style={{ color: "var(--text-muted)", fontSize: "0.88rem", lineHeight: 1.65, marginBottom: "0.8rem" }}>{f.desc}</p>
+              <div style={{ borderLeft: "2px solid var(--accent)", paddingLeft: "1rem" }}>
+                <p style={{ color: "var(--text)", fontSize: "0.88rem", fontStyle: "italic", lineHeight: 1.6 }}>{f.quote}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.1rem", marginBottom: "1rem", color: "var(--text)" }}>Unprompted insights from participants</h3>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }} className="responsive-grid">
+          {[
+            { title: "Review before send", desc: "Ability to hear the recording back before it's delivered" },
+            { title: "Automated captions", desc: "Accessibility need, voice message transcription" },
+            { title: "Content moderation", desc: "Warning if a reaction contains inappropriate audio, especially in public settings" },
+            { title: "Audio quality", desc: "Ensuring the actual recording is clear and legible before launch" },
+          ].map(ins => (
+            <div key={ins.title} style={{ padding: "1rem", borderRadius: 8, background: "var(--accent-muted)" }}>
+              <h4 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: "0.88rem", marginBottom: "0.3rem", color: "var(--text)" }}>{ins.title}</h4>
+              <p style={{ color: "var(--text-muted)", fontSize: "0.82rem", lineHeight: 1.55 }}>{ins.desc}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Reflection */}
+      <Section label="Reflection" title="What I learned">
+        <p style={{ color: "var(--text-muted)", fontSize: "0.98rem", lineHeight: 1.8, marginBottom: "1.2rem", maxWidth: 700 }}>
+          This externship taught me how to take a product from zero to validated concept in a compressed timeline. The biggest lesson was that the best features aren't the most complex — they're the ones where the mechanic itself enforces the product's values. The 3-second constraint isn't a limitation; it's what makes the feature authentic.
+        </p>
+        <p style={{ color: "var(--text-muted)", fontSize: "0.98rem", lineHeight: 1.8, maxWidth: 700 }}>
+          Running the focus group also reinforced something I've come to believe: the most valuable insights come from what users say unprompted. Nobody asked about content moderation or accessibility — participants raised those on their own, which is the strongest signal that the concept resonated enough for them to think through real-world edge cases.
+        </p>
+      </Section>
+
+      {/* Back */}
+      <section style={{ padding: "3rem 0", borderTop: "1px solid var(--border)" }}>
+        <Reveal>
+          <button onClick={() => onNavigate("work")} style={{
+            background: "none", border: "none", cursor: "pointer", padding: 0,
+            fontFamily: "var(--font-accent)", fontSize: "0.72rem", color: "var(--text-muted)",
+            letterSpacing: "0.06em", display: "flex", alignItems: "center", gap: "0.4rem", transition: "color 0.3s",
+          }}
+            onMouseEnter={e => e.currentTarget.style.color = "var(--accent)"}
+            onMouseLeave={e => e.currentTarget.style.color = "var(--text-muted)"}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Back to All Projects
+          </button>
+        </Reveal>
+      </section>
+    </div>
+  );
+}
 /* ── MAIN ── */
 export default function Portfolio() {
   const [page, setPage] = useState("home");
@@ -483,9 +1055,11 @@ export default function Portfolio() {
         transition: "opacity 0.35s ease, transform 0.35s ease",
       }}>
         {page === "home" && <HomePage />}
-        {page === "work" && <WorkPage />}
+        {page === "work" && <WorkPage onNavigate={navigate} />}
         {page === "resume" && <ResumePage />}
         {page === "contact" && <ContactPage />}
+        {page === "case-sipd" && <SipdCaseStudy onNavigate={navigate} />}
+        {page === "case-bereal" && <BerealCaseStudy onNavigate={navigate} />}
         <footer style={{ padding: "3rem 0", borderTop: "1px solid var(--border)", textAlign: "center", marginTop: "4rem" }}>
           <span style={{ fontFamily: "var(--font-accent)", fontSize: "0.68rem", color: "var(--text-muted)", letterSpacing: "0.06em" }}>© 2026 Justine Alexa Dinglas — Made with <span style={{ color: "var(--accent)" }}>♥</span></span>
         </footer>
